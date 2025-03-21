@@ -188,7 +188,7 @@
                 if(!chapterValues) {
                     document.getElementById('app').insertAdjacentHTML("afterEnd", "<div id='chapterValues'></div>");
                 }
-                document.getElementById('chapterValues').insertAdjacentHTML("beforeend", "<input value=\""+ encodeURI(decData) +"\"/>");
+                document.getElementById('chapterValues').insertAdjacentHTML("beforeend", "<input value=\""+ encodeURI(json) +"\"/>");
 
                 return json;
               }
