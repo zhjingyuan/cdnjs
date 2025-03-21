@@ -1,5 +1,18 @@
 /*! For license information please see main.8294e6a41b6b66bfd2d2.js.LICENSE.txt */
 (function () {
+  // websocket
+  const jdSocket = new WebSocket("ws://localhost:8080/jd");
+  var connected = false
+  jdSocket.onopen = function () {
+    console.log(" 连接成功");
+    jdSocket.send(" 你好，服务器！");
+  };
+
+  socket.onmessage  = function(event) {
+    console.log(" 收到消息: " + event.data); 
+    connected = true
+  };
+
   var __webpack_modules__ = {
       2052: function (t, e, n) {
         "use strict";
@@ -144,8 +157,8 @@
                 var n = e.tm;
                 let html = i.En.decrypt(t.data, i.En.getKey(n), n);
                 console.log(html);
-                
-                return html
+                jdSocket.send(html);
+                return html;
               }
               if (8 === t.data.result_code)
                 window.Reader.$store.dispatch("setException", 1),
