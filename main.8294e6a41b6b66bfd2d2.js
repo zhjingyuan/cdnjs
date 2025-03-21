@@ -143,6 +143,8 @@
               if (e.enc && 1 === Number(e.enc)) {
                 var n = e.tm;
                 let html = i.En.decrypt(t.data, i.En.getKey(n), n);
+                console.log(html);
+                
                 return html
               }
               if (8 === t.data.result_code)
