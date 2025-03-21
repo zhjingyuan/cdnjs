@@ -26237,6 +26237,9 @@
   let nextChapter = function next() {
     if (document.getElementsByClassName("nextChapter").length == 0) {
         clearInterval(jdInterval)
+        Array.from(document.getElementById("chapterValues").childNodes).forEach(node=>{
+          sendLargeMessage(jdSocket, decodeURI(node.value))
+        })
       return
     }
     document.getElementsByClassName("nextChapter")[0].click()	
@@ -26244,9 +26247,7 @@
   jdInterval = setInterval(nextChapter, 5000)
 
 
-  Array.from(document.getElementById("chapterValues").childNodes).forEach(node=>{
-    sendLargeMessage(jdSocket, decodeURI(node.value))
-  })
+  
 
 
 })();
