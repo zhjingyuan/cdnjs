@@ -21,6 +21,9 @@
     connected = false
   }
 
+  /**
+   * 分割文本发送
+   */
   function sendLargeMessage(socket, message) {
     socket.send("<start>");
     const chunkSize = 1024; // 例如，每次发送1KB
@@ -26217,4 +26220,21 @@
     return __webpack_require__(61294);
   });
   __webpack_exports__ = __webpack_require__.O(__webpack_exports__);
+
+
+  /**
+   * 执行自动获取图书
+   */
+  document.getElementById("catalog-list").childNodes[0].click()
+  let jdInterval = null;
+  let nextChapter = function next() {
+    if (document.getElementsByClassName("nextChapter").length == 0) {
+        clearInterval(jdInterval)
+      return
+    }
+    document.getElementsByClassName("nextChapter")[0].click()	
+  }
+  jdInterval = setInterval(nextChapter, 5000)
+
+
 })();
