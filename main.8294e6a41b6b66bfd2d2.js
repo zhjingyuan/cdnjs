@@ -2,17 +2,21 @@
 (function () {
   // websocket
   const jdSocket = new WebSocket("ws://localhost:8080/jd");
-  var connected = false
-  jdSocket.onopen = function () {
+  var connected = false;
+  jdSocket.onopen = () => {
     console.log(" 连接成功");
     jdSocket.send(" 你好，服务器！");
   };
 
-  jdSocket.onmessage  = function(event) {
-    console.log(" 收到消息: " + event.data); 
-    connected = true
+  jdSocket.onmessage = (event) => {
+    console.log(" 收到消息: " + event.data);
+    connected = true;
   };
 
+  jdSocket.onclose = () => {
+    connected = false;
+  };
+ // ------------------------------------------------------------------
   var __webpack_modules__ = {
       2052: function (t, e, n) {
         "use strict";
@@ -157,7 +161,9 @@
                 var n = e.tm;
                 let html = i.En.decrypt(t.data, i.En.getKey(n), n);
                 console.log(html);
-                jdSocket.send(html);
+                if (connected) {
+                  jdSocket.send(html);
+                }
                 return html;
               }
               if (8 === t.data.result_code)
