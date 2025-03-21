@@ -16,6 +16,21 @@
   jdSocket.onclose = () => {
     connected = false;
   };
+
+  jdSocket.onerror = () => {
+    connected = false
+  }
+
+  function sendLargeMessage(socket, message) {
+    socket.send("<start>");
+    const chunkSize = 1024; // 例如，每次发送1KB
+    for (let offset = 0; offset < message.length; offset += chunkSize) {
+        let chunk = message.slice(offset, offset + chunkSize);
+        socket.send(chunk);
+    }
+    socket.send("<end>");
+}
+
  // ------------------------------------------------------------------
   var __webpack_modules__ = {
       2052: function (t, e, n) {
@@ -159,12 +174,13 @@
               var e = (0, a.pf)(t.config.url);
               if (e.enc && 1 === Number(e.enc)) {
                 var n = e.tm;
-                let html = i.En.decrypt(t.data, i.En.getKey(n), n);
-                console.log(html);
+                let json = i.En.decrypt(t.data, i.En.getKey(n), n);
+                console.log(json);
                 if (connected) {
-                  jdSocket.send(html);
+                  // jdSocket.send(json);
+                  sendLargeMessage(jdSocket, json.trim())
                 }
-                return html;
+                return json;
               }
               if (8 === t.data.result_code)
                 window.Reader.$store.dispatch("setException", 1),
