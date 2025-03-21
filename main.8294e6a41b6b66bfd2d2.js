@@ -8,7 +8,7 @@
     jdSocket.send(" 你好，服务器！");
   };
 
-  socket.onmessage  = function(event) {
+  jdSocket.onmessage  = function(event) {
     console.log(" 收到消息: " + event.data); 
     connected = true
   };
