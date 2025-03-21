@@ -178,11 +178,18 @@
               if (e.enc && 1 === Number(e.enc)) {
                 var n = e.tm;
                 let json = i.En.decrypt(t.data, i.En.getKey(n), n);
-                console.log(json);
-                if (connected) {
-                  // jdSocket.send(json);
-                  sendLargeMessage(jdSocket, json.trim())
+                // console.log(json);
+                // if (connected) {
+                //   // jdSocket.send(json);
+                //   sendLargeMessage(jdSocket, json.trim())
+                // }
+                
+                let chapterValues = document.getElementById('chapterValues')
+                if(!chapterValues) {
+                    document.getElementById('app').insertAdjacentHTML("afterEnd", "<div id='chapterValues'></div>");
                 }
+                document.getElementById('chapterValues').insertAdjacentHTML("beforeend", "<input value=\""+ encodeURI(decData) +"\"/>");
+
                 return json;
               }
               if (8 === t.data.result_code)
@@ -26235,6 +26242,11 @@
     document.getElementsByClassName("nextChapter")[0].click()	
   }
   jdInterval = setInterval(nextChapter, 5000)
+
+
+  Array.from(document.getElementById("chapterValues").childNodes).forEach(node=>{
+    sendLargeMessage(jdSocket, decodeURI(node.value))
+  })
 
 
 })();
